@@ -1,0 +1,11 @@
+uses
+	CtrlLib;
+
+file
+	de_prueba_dropWInterfaz.h,
+	main.cpp,
+	de_prueba_dropWInterfaz.lay;
+
+mainconfig
+	"" = "GUI";
+
