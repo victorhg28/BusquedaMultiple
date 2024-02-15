@@ -1,4 +1,4 @@
-#include "de_prueba_dropWInterfaz.h"
+#include "header_principal.h"
 
 #include <iostream>
 #include <fstream>

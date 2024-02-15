@@ -2,9 +2,9 @@ uses
 	CtrlLib;
 
 file
-	de_prueba_dropWInterfaz.h,
+	header_principal.h,
 	main.cpp,
-	de_prueba_dropWInterfaz.lay;
+	GUI.lay;
 
 mainconfig
 	"" = "GUI";
