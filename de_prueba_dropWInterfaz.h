@@ -16,6 +16,10 @@ public:
 	virtual void LeftDrag(Point p, dword keyflags);
 	virtual void Paint(Draw &w);
 	Vector<String> files;
+	
+	void buscar();
+	
+	std::string archivoMML="";
 
 	de_prueba_dropWInterfaz();
 };

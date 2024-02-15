@@ -2,5 +2,6 @@ LAYOUT(de_prueba_dropWInterfazLayout, 380, 248)
 	ITEM(Upp::Label, dv___0, SetLabel(t_("archivo MML")).LeftPosZ(16, 72).TopPosZ(24, 19))
 	ITEM(Upp::Label, label1, SetLabel(t_("*arrastre y suelte el archivo aquí*")).LeftPosZ(112, 248).TopPosZ(24, 19))
 	ITEM(Upp::StaticText, static_text, LeftPosZ(36, 300).TopPosZ(220, 19))
+	ITEM(Upp::Button, btn_buscar, SetLabel(t_("Buscar")).LeftPosZ(84, 88).TopPosZ(88, 20))
 END_LAYOUT
 
