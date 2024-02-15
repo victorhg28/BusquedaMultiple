@@ -19,7 +19,13 @@ de_prueba_dropWInterfaz::de_prueba_dropWInterfaz()
 	//barra de progreso
 	//progreso.SetTotal(100);
 	
+	//Button basd;
+	//FileSel seleccionArchivo;
+	//seleccionArchivo.ExecuteOpen("abc");
 	
+	//PromptOK((String)to_string(label1.GetPos()));
+	
+	//Add(seleccionArchivo.BottomPos(0,100).BottomPosZ(0,20));
 	//ofstream archivo_resultado("resultado_busqueda.txt", std::ios::app);
 	
 	
@@ -75,12 +81,25 @@ void de_prueba_dropWInterfaz::Slider(){
 
 void de_prueba_dropWInterfaz::DragAndDrop(Point p, PasteClip& d)
 {
+	//todavia algo primitivo
+	//if(p.x>=112 && p.y>=24){
+	if(p.x>=112 && p.y>=24 && p.x<=360 && p.y<=72){
+		if(IsDragAndDropSource())
+			return;
+		if(AcceptFiles(d)) {
+			files = GetFiles(d);
+			Refresh();
+		}
+	}
+	
+	
+	/*
 	if(IsDragAndDropSource())
 		return;
 	if(AcceptFiles(d)) {
 		files = GetFiles(d);
 		Refresh();
-	}
+	}*/
 }
 
 void de_prueba_dropWInterfaz::LeftDrag(Point p, dword keyflags)
@@ -115,7 +134,7 @@ void de_prueba_dropWInterfaz::buscar(){
 	progreso.Set(0);
 	
 	bool encontrado=false;
-	int contador=0;
+	int contador=0; //para mostrar la cantidad de veces que se encontró el resultado
 	
 	
 	string str_aux_text="";
@@ -133,13 +152,15 @@ void de_prueba_dropWInterfaz::buscar(){
 		//label1.SetText(files[i]+"\n");
 		
 		ifstream ifstream_archivo(files[i]);
-		archivo_resultado<<"["<<to_string(files[i]).substr(89)<<"]\n";
+		//archivo_resultado<<"["<<to_string(files[i]).substr(89)<<"]\n";
+		archivo_resultado<<"["<<to_string(files[i])<<"]\n";
 		
 		//contador_progreso+=1/files.GetCount();
 		//progreso.Set(contador_progreso);
-		if (i>files.GetCount()/4){
+		
+		//if (i>files.GetCount()/4){
 			progreso.Set(25);
-		}
+		//}
 		
 		while (getline (ifstream_archivo, str_aux_text)) {
 				//label1.SetText((String)str_aux_text);
@@ -183,7 +204,8 @@ void de_prueba_dropWInterfaz::Paint(Draw &w) {
 	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
 	Refresh();
 	
-	
+	//SetFrame
+	//dragNdrop_1.Color(Gray());
 	
 	for(int i=0;i<files.GetCount();i++){
 		//label1.SetText(files[i]);
@@ -249,5 +271,6 @@ void de_prueba_dropWInterfaz::Paint(Draw &w) {
 
 GUI_APP_MAIN
 {
+	//de_prueba_dropWInterfaz.Add(progreso);
 	de_prueba_dropWInterfaz().Run();
 }
