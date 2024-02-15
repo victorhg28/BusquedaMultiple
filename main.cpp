@@ -16,7 +16,11 @@ de_prueba_dropWInterfaz::de_prueba_dropWInterfaz()
 	bg_verde.MinMax(0,255);
 	bg_azul.MinMax(0,255);
 	
+	//barra de progreso
+	//progreso.SetTotal(100);
 	
+	
+	//ofstream archivo_resultado("resultado_busqueda.txt", std::ios::app);
 	
 	
 	//bg_rojo << THISFN(Slider());
@@ -93,23 +97,79 @@ void de_prueba_dropWInterfaz::LeftDrag(Point p, dword keyflags)
 
 
 void de_prueba_dropWInterfaz::buscar(){
+	
+	/*
+	if(files.GetCount()){
+		for(int i=0;i<=files.GetCount();i++){
+			label1.SetText(files[i]);
+			archivoMML = files[i];
+		}
+		
+	}else{
+		label1.SetText("*arrastre y suelte el archivo aquí*");
+	}*/
+	//(new MyAppWindow)->OpenMain();
+	
+	//progreso.SetTotal(files.GetCount());
+	progreso.SetTotal(100);
+	progreso.Set(0);
+	
+	bool encontrado=false;
+	int contador=0;
+	
+	
 	string str_aux_text="";
-		
-	ifstream ifstream_archivo(archivoMML);
-		
+	//ifstream ifstream_archivo(archivoMML);
+	
+	//ofstream archivo_resultado("resultado_busqueda.txt", std::ios::app);
 	ofstream archivo_resultado("resultado_busqueda.txt", std::ios::trunc);
+	
+	int contador_progreso=0;
+	
+	for(int i=0;i<files.GetCount();i++){
+		//label1.SetText(files[i]);
+		//archivoMML = files[i];
 		
-	while (getline (ifstream_archivo, str_aux_text)) {
-			//label1.SetText((String)str_aux_text);
-			
-			if (str_aux_text.find("aaaa") != std::string::npos) {
-				//std::cout << "found!" << '\n';
-				archivo_resultado<<str_aux_text<<"\n";
-			}
-			
+		//label1.SetText(files[i]+"\n");
 		
-		PromptOK("Resultado Generado");
+		ifstream ifstream_archivo(files[i]);
+		archivo_resultado<<"["<<to_string(files[i]).substr(89)<<"]\n";
+		
+		//contador_progreso+=1/files.GetCount();
+		//progreso.Set(contador_progreso);
+		if (i>files.GetCount()/4){
+			progreso.Set(25);
+		}
+		
+		while (getline (ifstream_archivo, str_aux_text)) {
+				//label1.SetText((String)str_aux_text);
+				
+				//104.239.146.23
+				if (str_aux_text.find("104.239.146.23") != std::string::npos) {
+					//std::cout << "found!" << '\n';
+					//archivo_resultado<<"["<<to_string(files[i])<<"] "
+					archivo_resultado<<str_aux_text<<"\n";
+					encontrado=true;
+					contador++;
+				}
+		}
+		archivo_resultado<<"\n";
 	}
+	
+	if(encontrado){
+		string respuesta;
+		respuesta = "Resultado Generado, encontrado ";
+		respuesta += to_string(contador);
+		respuesta += " veces";
+		
+		PromptOK((String)respuesta);
+	}
+	else{
+		PromptOK("No se encontró en ningun archivo");
+	}
+		
+	
+	
 }
 
 
@@ -122,6 +182,15 @@ void de_prueba_dropWInterfaz::Paint(Draw &w) {
 	//LAYOUTFILE.changeColor(Color(0,0,0));
 	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
 	Refresh();
+	
+	
+	
+	for(int i=0;i<files.GetCount();i++){
+		//label1.SetText(files[i]);
+		//archivoMML = files[i];
+		//label1.SetText(files[i]+"\n");
+		label1.SetText((String)to_string(files.GetCount())+" archivos cargados");
+	}
 	
 	
 	
@@ -144,16 +213,30 @@ void de_prueba_dropWInterfaz::Paint(Draw &w) {
 	*/
 	//label1.SetText("antes");
 	
+	/*
 	if(files.GetCount()){
 		//w.DrawText(2, 2 * Draw::GetStdFontCy(), files[0]);
-		label1.SetText(files[0]);
-		archivoMML = files[0];
 		
-		//static_text.SetText((String)files[0].ToStd());
+		//label1.SetText((String)to_string(files.GetCount()));
+		
+		
+		for(int i=0;i<=files.GetCount();i++){
+			label1.SetText(files[i]);
+			archivoMML = files[i];
+			
+			//buscar();
+			
+			//static_text.SetText((String)files[0].ToStd());
+		}
+		
+		
+		//label1.SetText(files[0]);
+		//	archivoMML = files[0];
 		
 	}else{
 		label1.SetText("*arrastre y suelte el archivo aquí*");
 	}
+	*/
 	
 	//label1.SetText("despues");
 	

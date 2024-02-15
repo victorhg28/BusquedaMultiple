@@ -5,6 +5,12 @@
 
 using namespace Upp;
 
+#include <fstream>
+#include <string>
+#include <iostream>
+
+using namespace std;
+
 #define LAYOUTFILE <Ver_si_existen_IPS/GUI.lay>
 #include <CtrlCore/lay.h>
 
@@ -24,9 +30,12 @@ public:
 	//void Slider();
 	void Slider();
 	
+	//progress
 	//mis variables
 	std::string archivoMML="";
 	
+	//archivo resultado
+	//ofstream archivo_resultado("resultado_busqueda.txt", std::ios::app);
 
 	//constructor
 	de_prueba_dropWInterfaz();
