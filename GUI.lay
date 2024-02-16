@@ -1,4 +1,4 @@
-LAYOUT(de_prueba_dropWInterfazLayout, 380, 328)
+LAYOUT(de_prueba_dropWInterfazLayout, 380, 428)
 	ITEM(Upp::Label, label1, SetLabel(t_("*arrastre y suelte archivo aqui*")).SetFrame(Upp::BottomSeparatorFrame()).LeftPosZ(112, 240).TopPosZ(20, 40))
 	ITEM(Upp::Label, dv___1, SetLabel(t_("archivo MML")).LeftPosZ(24, 72).TopPosZ(24, 19))
 	ITEM(Upp::StaticText, static_text, LeftPosZ(32, 300).TopPosZ(284, 19))
@@ -11,6 +11,7 @@ LAYOUT(de_prueba_dropWInterfazLayout, 380, 328)
 	ITEM(Upp::Label, dv___9, SetLabel(t_("Azul")).LeftPosZ(208, 40).TopPosZ(224, 19))
 	ITEM(Upp::Button, btn_colorBG, SetLabel(t_("cambiar color")).LeftPosZ(204, 160).TopPosZ(260, 15))
 	ITEM(Upp::LabelBox, dv___11, SetLabel(t_("Color de fondo")).LeftPosZ(192, 180).TopPosZ(140, 140))
-	ITEM(Upp::ProgressIndicator, progreso, LeftPosZ(48, 284).TopPosZ(92, 24))
+	ITEM(Upp::ProgressIndicator, progreso, LeftPosZ(48, 284).TopPosZ(328, 24))
+	ITEM(Upp::ColumnList, dv___13, LeftPosZ(124, 150).TopPosZ(84, 100))
 END_LAYOUT
 
