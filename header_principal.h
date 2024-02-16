@@ -16,7 +16,7 @@ using namespace std;
 
 
 //class ProgramaBusqueda
-class de_prueba_dropWInterfaz : public Withde_prueba_dropWInterfazLayout<TopWindow> {
+class ProgramaBusqueda : public Withde_prueba_dropWInterfazLayout<TopWindow> {
 //class de_prueba_dropWInterfaz : public WithVer_si_existen_IPSLayout<TopWindow> {
 public:
 	
@@ -39,7 +39,7 @@ public:
 	//ofstream archivo_resultado("resultado_busqueda.txt", std::ios::app);
 
 	//constructor
-	de_prueba_dropWInterfaz();
+	ProgramaBusqueda();
 
 };
 

@@ -15,7 +15,7 @@ struct coordenadasWidget{
 };
 
 //constructor
-de_prueba_dropWInterfaz::de_prueba_dropWInterfaz()
+ProgramaBusqueda::ProgramaBusqueda()
 {
 	CtrlLayout(*this, "Busqueda");
 	
@@ -38,7 +38,7 @@ de_prueba_dropWInterfaz::de_prueba_dropWInterfaz()
 	btn_config << [=] { configuracion(); };
 }
 
-void de_prueba_dropWInterfaz::configuracion(){
+void ProgramaBusqueda::configuracion(){
 	PromptOK("asdasd");
 	/*
 	TabDlg dlg;
@@ -52,7 +52,7 @@ void de_prueba_dropWInterfaz::configuracion(){
 
 
 
-void de_prueba_dropWInterfaz::DragAndDrop(Point p, PasteClip& d)
+void ProgramaBusqueda::DragAndDrop(Point p, PasteClip& d)
 {
 	//struct para guardar las coordenadas del widget
 	coordenadasWidget coordenadas;
@@ -78,7 +78,7 @@ void de_prueba_dropWInterfaz::DragAndDrop(Point p, PasteClip& d)
 	}
 }
 
-void de_prueba_dropWInterfaz::LeftDrag(Point p, dword keyflags)
+void ProgramaBusqueda::LeftDrag(Point p, dword keyflags)
 {
 	if(files.GetCount()) {
 		VectorMap<String, ClipData> data;
@@ -88,7 +88,7 @@ void de_prueba_dropWInterfaz::LeftDrag(Point p, dword keyflags)
 }
 
 
-void de_prueba_dropWInterfaz::buscar(){
+void ProgramaBusqueda::buscar(){
 	
 	bool encontrado=false;
 	int contador=0; //para mostrar la cantidad de veces que se encontró el resultado
@@ -176,7 +176,7 @@ void de_prueba_dropWInterfaz::buscar(){
 }
 
 
-void de_prueba_dropWInterfaz::Paint(Draw &w) {
+void ProgramaBusqueda::Paint(Draw &w) {
 	
 	//w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
 	//w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
@@ -188,6 +188,6 @@ void de_prueba_dropWInterfaz::Paint(Draw &w) {
 
 GUI_APP_MAIN
 {
-	de_prueba_dropWInterfaz().Zoomable().Sizeable().Run();
+	ProgramaBusqueda().Zoomable().Sizeable().Run();
 	//de_prueba_dropWInterfaz
 }
