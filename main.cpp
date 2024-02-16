@@ -50,9 +50,12 @@ void de_prueba_dropWInterfaz::DragAndDrop(Point p, PasteClip& d)
 			return;
 		if(AcceptFiles(d)) {
 			files = GetFiles(d);
+			
+			//añadiendo archivos a columnList
 			for(int i=0;i<files.GetCount();i++){
 				clist_archivos.Add(files[i]);
 			}
+			
 			Refresh();
 		}
 		
@@ -80,6 +83,14 @@ void de_prueba_dropWInterfaz::buscar(){
 	
 	int contador_progreso=0;
 	
+	
+	//busqueda desde archivos de column list
+	//PromptOK((String)clist_archivos.GetValue(0));
+	String asd = clist_archivos.GetValue(0);
+	lbl_mml.SetText(asd);
+	
+	//busqueda directamente de clipboard
+	/*
 	for(int i=0;i<files.GetCount();i++){
 		
 		ifstream ifstream_archivo(files[i]);
@@ -97,6 +108,8 @@ void de_prueba_dropWInterfaz::buscar(){
 		}
 		archivo_resultado<<"\n";
 	}
+	*/
+	
 	
 	if(encontrado){
 		string respuesta;
