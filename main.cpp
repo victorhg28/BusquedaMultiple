@@ -86,8 +86,27 @@ void de_prueba_dropWInterfaz::buscar(){
 	
 	//busqueda desde archivos de column list
 	//PromptOK((String)clist_archivos.GetValue(0));
-	String asd = clist_archivos.GetValue(0);
-	lbl_mml.SetText(asd);
+	
+	for(int i=0;i<clist_archivos.GetCount();i++){
+		ifstream ifstream_archivo( (clist_archivos.GetValue(i)).ToStd() );
+		archivo_resultado<<"["<<(clist_archivos.GetValue(i)).ToStd()<<"]\n";
+		
+		//progreso.Set(25);
+		
+		while (getline (ifstream_archivo, str_aux_text)) {
+			//104.239.146.23
+			if (str_aux_text.find("1") != std::string::npos) {
+				archivo_resultado<<str_aux_text<<"\n";
+				encontrado=true;
+				contador++;
+			}
+		}
+		archivo_resultado<<"\n";
+	
+	}
+	
+	//String asd = clist_archivos.GetValue(0);
+	//lbl_mml.SetText(asd);
 	
 	//busqueda directamente de clipboard
 	/*
