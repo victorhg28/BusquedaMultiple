@@ -14,10 +14,7 @@ using namespace std;
 #define LAYOUTFILE <Ver_si_existen_IPS/GUI.lay>
 #include <CtrlCore/lay.h>
 
-
-//class ProgramaBusqueda
-class ProgramaBusqueda : public Withde_prueba_dropWInterfazLayout<TopWindow> {
-//class de_prueba_dropWInterfaz : public WithVer_si_existen_IPSLayout<TopWindow> {
+class ProgramaBusqueda : public Withlayout_principal<TopWindow> {
 public:
 	
 	virtual void DragAndDrop(Point p, PasteClip& d) override;

@@ -34,12 +34,26 @@ ProgramaBusqueda::ProgramaBusqueda()
 	progreso.SetTotal(100);
 	progreso.Set(0);
 	
+	//ColumnList
+	clist_archivos.Mode(Upp::ColumnList::MODE_COLUMN);
+	
 	btn_buscar << [=] { buscar(); };
 	btn_config << [=] { configuracion(); };
 }
 
 void ProgramaBusqueda::configuracion(){
-	PromptOK("asdasd");
+	//PromptOK("asdasd");
+	
+	TabDlg dlg;
+	Withlayout_configTab1<ParentCtrl> tab1;
+	Withlayout_configTab2<ParentCtrl> tab2;
+	dlg(tab1, "Color")(tab2, "Tab2")
+	   .Apply()
+	   .OKCancel()
+	   
+	   .Title("Configuracion");
+	dlg.Run();
+	//dlg.
 	/*
 	TabDlg dlg;
 	WithConfigTab1Layout<ParentCtrl> tab1;
@@ -47,7 +61,8 @@ void ProgramaBusqueda::configuracion(){
 	dlg(tab1, "Tab1")(tab2, "Tab2")
 	   .OKCancel()
 	   .Title("Tab dialog");
-	dlg.Run();*/
+	dlg.Run();
+	*/
 }
 
 
@@ -178,9 +193,10 @@ void ProgramaBusqueda::buscar(){
 
 void ProgramaBusqueda::Paint(Draw &w) {
 	
+	w.DrawRect(GetSize(),SColorPaper);
 	//w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
 	//w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
-	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB
+	//w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB
 	
 	Refresh();
 
