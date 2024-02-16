@@ -19,32 +19,48 @@ de_prueba_dropWInterfaz::de_prueba_dropWInterfaz()
 {
 	CtrlLayout(*this, "Busqueda");
 	
+	//AddFrame(menu);
+	//AddFrame(menu);
+	//menu.Set([=](Bar& bar) { MainMenu(bar); });
+	//this->AddFrame(menu);
+	//menu.Set([=](Bar& bar) { MainMenu(bar); });
+	
 	//sliders color de fondo
 	bg_rojo.MinMax(0,255);
 	bg_verde.MinMax(0,255);
 	bg_azul.MinMax(0,255);
 	
+	//barra de progreso, configuracion inicial
+	progreso.SetTotal(100);
+	progreso.Set(0);
 	
 	btn_buscar << [=] { buscar(); };
+	btn_config << [=] { configuracion(); };
 }
 
-/*
-void de_prueba_dropWInterfaz::Slider(){
-	
-	static_text.SetText(AsString(~bg_rojo));
-	
-}*/
+void de_prueba_dropWInterfaz::configuracion(){
+	PromptOK("asdasd");
+	/*
+	TabDlg dlg;
+	WithConfigTab1Layout<ParentCtrl> tab1;
+	WithTab2Layout<ParentCtrl> tab2;
+	dlg(tab1, "Tab1")(tab2, "Tab2")
+	   .OKCancel()
+	   .Title("Tab dialog");
+	dlg.Run();*/
+}
+
+
 
 void de_prueba_dropWInterfaz::DragAndDrop(Point p, PasteClip& d)
 {
 	//struct para guardar las coordenadas del widget
 	coordenadasWidget coordenadas;
-	coordenadas.x0 = label1.GetRect().TopLeft().x;
-	coordenadas.y0 = label1.GetRect().TopLeft().y;
-	coordenadas.x1 = label1.GetRect().BottomRight().x;
-	coordenadas.y1 = label1.GetRect().BottomRight().y;
+	coordenadas.x0 = clist_archivos.GetRect().TopLeft().x;
+	coordenadas.y0 = clist_archivos.GetRect().TopLeft().y;
+	coordenadas.x1 = clist_archivos.GetRect().BottomRight().x;
+	coordenadas.y1 = clist_archivos.GetRect().BottomRight().y;
 	
-	//if(p.x>=112 && p.y>=24 && p.x<=360 && p.y<=72){
 	if(p.x>=coordenadas.x0 && p.y>=coordenadas.y0 && p.x<=coordenadas.x1 && p.y<=coordenadas.y1){
 		if(IsDragAndDropSource())
 			return;
@@ -81,9 +97,9 @@ void de_prueba_dropWInterfaz::buscar(){
 	
 	ofstream archivo_resultado("resultado_busqueda.txt", std::ios::trunc);
 	
-	int contador_progreso=0;
+	//int contador_progreso=0;
 	
-	
+	//tip TabCtrl
 	//busqueda desde archivos de column list
 	//PromptOK((String)clist_archivos.GetValue(0));
 	
@@ -95,15 +111,28 @@ void de_prueba_dropWInterfaz::buscar(){
 		
 		while (getline (ifstream_archivo, str_aux_text)) {
 			//104.239.146.23
-			if (str_aux_text.find("1") != std::string::npos) {
+			if (str_aux_text.find("a") != std::string::npos) {
 				archivo_resultado<<str_aux_text<<"\n";
 				encontrado=true;
 				contador++;
 			}
 		}
 		archivo_resultado<<"\n";
-	
+		
+		//*******
+		//contador_progreso+=1000/clist_archivos.GetCount();
+		//contador++;
+		//contador_progreso+=25;
+		//if(contador_progreso==1000){contador_progreso=0;}
+		//progreso.Set(contador_progreso);
+		//Refresh();
+		
+		//contador_progreso+=1;
+		//if(contador_progreso==100){contador_progreso=0;}
+		//lbl_progreso.SetText((String)to_string(contador_progreso));
+		//Refresh();
 	}
+	progreso.Set(100);
 	
 	//String asd = clist_archivos.GetValue(0);
 	//lbl_mml.SetText(asd);
@@ -151,23 +180,14 @@ void de_prueba_dropWInterfaz::Paint(Draw &w) {
 	
 	//w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
 	//w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
-	
 	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB
 	
 	Refresh();
-	
-	for(int i=0;i<files.GetCount();i++){
-		//label1.SetText(files[i]);
-		//archivoMML = files[i];
-		//label1.SetText(files[i]+"\n");
-		label1.SetText((String)to_string(files.GetCount())+" archivos cargados");
-	}
-	//clist_archivos.Add()
-	//ColumnList
 
 }
 
 GUI_APP_MAIN
 {
-	de_prueba_dropWInterfaz().Zoomable().Run();
+	de_prueba_dropWInterfaz().Zoomable().Sizeable().Run();
+	//de_prueba_dropWInterfaz
 }

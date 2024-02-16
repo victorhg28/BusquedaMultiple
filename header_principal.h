@@ -14,6 +14,8 @@ using namespace std;
 #define LAYOUTFILE <Ver_si_existen_IPS/GUI.lay>
 #include <CtrlCore/lay.h>
 
+
+//class ProgramaBusqueda
 class de_prueba_dropWInterfaz : public Withde_prueba_dropWInterfazLayout<TopWindow> {
 //class de_prueba_dropWInterfaz : public WithVer_si_existen_IPSLayout<TopWindow> {
 public:
@@ -27,8 +29,7 @@ public:
 	
 	//mis metodos
 	void buscar();
-	//void Slider();
-	void Slider();
+	void configuracion();
 	
 	//progress
 	//mis variables
@@ -39,6 +40,7 @@ public:
 
 	//constructor
 	de_prueba_dropWInterfaz();
+
 };
 
 #endif
