@@ -17,22 +17,23 @@ struct coordenadasWidget{
 //constructor
 de_prueba_dropWInterfaz::de_prueba_dropWInterfaz()
 {
-	CtrlLayout(*this, "Window title");
+	CtrlLayout(*this, "Busqueda");
 	
 	//sliders color de fondo
 	bg_rojo.MinMax(0,255);
 	bg_verde.MinMax(0,255);
 	bg_azul.MinMax(0,255);
 	
-	bg_rojo << [=] { Slider(); };
+	
 	btn_buscar << [=] { buscar(); };
 }
 
+/*
 void de_prueba_dropWInterfaz::Slider(){
 	
 	static_text.SetText(AsString(~bg_rojo));
 	
-}
+}*/
 
 void de_prueba_dropWInterfaz::DragAndDrop(Point p, PasteClip& d)
 {
@@ -49,8 +50,12 @@ void de_prueba_dropWInterfaz::DragAndDrop(Point p, PasteClip& d)
 			return;
 		if(AcceptFiles(d)) {
 			files = GetFiles(d);
+			for(int i=0;i<files.GetCount();i++){
+				clist_archivos.Add(files[i]);
+			}
 			Refresh();
 		}
+		
 	}
 }
 
@@ -84,7 +89,7 @@ void de_prueba_dropWInterfaz::buscar(){
 		
 		while (getline (ifstream_archivo, str_aux_text)) {
 			//104.239.146.23
-			if (str_aux_text.find("104.239.146.23") != std::string::npos) {
+			if (str_aux_text.find("1") != std::string::npos) {
 				archivo_resultado<<str_aux_text<<"\n";
 				encontrado=true;
 				contador++;
@@ -111,13 +116,12 @@ void de_prueba_dropWInterfaz::buscar(){
 
 
 void de_prueba_dropWInterfaz::Paint(Draw &w) {
-	//String
-	//cc= color_rgb_Sliders(StrInt(AsString(~bg_rojo)),0,0);
 	
-	//auto r = GetRect();
-	//w.DrawRect(r, color_rgb_Sliders);
-	//LAYOUTFILE.changeColor(Color(0,0,0));
-	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
+	//w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
+	//w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)),0,0));//RGB
+	
+	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB
+	
 	Refresh();
 	
 	for(int i=0;i<files.GetCount();i++){
@@ -125,12 +129,13 @@ void de_prueba_dropWInterfaz::Paint(Draw &w) {
 		//archivoMML = files[i];
 		//label1.SetText(files[i]+"\n");
 		label1.SetText((String)to_string(files.GetCount())+" archivos cargados");
-		
 	}
+	//clist_archivos.Add()
+	//ColumnList
 
 }
 
 GUI_APP_MAIN
 {
-	de_prueba_dropWInterfaz().Run();
+	de_prueba_dropWInterfaz().Zoomable().Run();
 }
