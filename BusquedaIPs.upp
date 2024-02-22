@@ -3,6 +3,7 @@ uses
 
 file
 	header_principal.h,
+	funciones_utiles.h,
 	main.cpp,
 	icono_principal.iml,
 	GUI.lay;

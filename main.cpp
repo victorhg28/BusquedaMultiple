@@ -10,14 +10,13 @@
 
 using namespace std;
 
+
+//retorna nombre de tecla presionada
 String GetKeyDescEx(int key){
-	
 	String desc = GetKeyDesc(key & ~K_KEYUP);
 	if(key & K_KEYUP)
 		desc << " UP";
 	return desc;
-	
-	//return "tecla presionada";
 }
 
 //struct para coordenadas de widget
@@ -33,7 +32,9 @@ bool ProgramaBusqueda::Key(dword key, int count)
 {
 	if(GetKeyDescEx(key)=="Delete"){
 		if (clist_archivos.GetCount()!=0) {
-			clist_archivos.Remove(clist_archivos.GetCursor());
+			//clist_archivos.Remove(clist_archivos.GetCursor());
+			//clist_archivos.Remove(clist_archivos.RemoveSelection());
+			clist_archivos.RemoveSelection();
 		}
 	}
 	return false;
@@ -46,19 +47,11 @@ ProgramaBusqueda::ProgramaBusqueda()
 	
 	Icon(IconoPrograma::mi_icono());//icono del programa
 	
+	//configurando propiedades del columnlist
 	clist_archivos.Mode(Upp::ColumnList::MODE_COLUMN);
-	
-	
-	//Event<> ev1;
-	
-	//tree_resultado.WhenOpen = THISFN(InicioTree);
-	
-	
-	//AddFrame(menu);
-	//AddFrame(menu);
-	//menu.Set([=](Bar& bar) { MainMenu(bar); });
-	//this->AddFrame(menu);
-	//menu.Set([=](Bar& bar) { MainMenu(bar); });
+	clist_archivos.ClickKill(true);
+	clist_archivos.MultiSelect(true);
+	clist_archivos.PopUpEx(false);
 	
 	//sliders color de fondo
 	//bg_rojo.MinMax(0,255);
@@ -69,16 +62,10 @@ ProgramaBusqueda::ProgramaBusqueda()
 	progreso.SetTotal(100);
 	progreso.Set(0);
 	
-	//ColumnList
-	//clist_archivos.Mode(Upp::ColumnList::MODE_COLUMN);
-	//clist_archivos.RightDown(Point(12,12), "asdad");
 	
-	
+	tree_resultado.OpenDeep(0);
 	
 	btn_buscar << [=] { buscar(); };
-	//clist_archivos.WhenBar() << [=] { buscar(); };
-	//Event
-	//PromptOK((String)clist_archivos.WhenBar);
 }
 
 
@@ -142,7 +129,6 @@ void ProgramaBusqueda::LeftDrag(Point p, dword keyflags)
 	if(files.GetCount()>0) {
 		VectorMap<String, ClipData> data;
 		AppendFiles(data, files);
-		//DoDragAndDrop(data, Null, DND_COPY);
 	}
 }
 
@@ -164,8 +150,9 @@ void ProgramaBusqueda::buscar(){
 			ifstream ifstream_archivo( (clist_archivos.GetValue(i)).ToStd() );
 			archivo_resultado<<"["<<(clist_archivos.GetValue(i)).ToStd()<<"]\n";
 			
-			
+			//añadiendo a tree
 			int x = tree_resultado.Add(0, Null, clist_archivos.GetValue(i));
+		
 			
 			
 			ifstream ifstream_archivoIPs( ( files_ips[0] ).ToStd() );
