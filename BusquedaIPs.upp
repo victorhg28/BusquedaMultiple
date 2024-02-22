@@ -4,6 +4,7 @@ uses
 file
 	header_principal.h,
 	main.cpp,
+	icono_principal.iml,
 	GUI.lay;
 
 mainconfig
