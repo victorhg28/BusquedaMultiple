@@ -204,6 +204,7 @@ void ProgramaBusqueda::buscar(){
 void ProgramaBusqueda::Paint(Draw &w) {
 	
 	//w.DrawRect(GetSize(),SColorPaper);
+	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB
 	Refresh();
 
 }
