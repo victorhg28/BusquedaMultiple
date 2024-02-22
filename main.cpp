@@ -104,7 +104,6 @@ void ProgramaBusqueda::DragAndDrop(Point p, PasteClip& d)
 				clist_archivos.Add(files[i]);
 				
 				//Bar clickDerecho;
-				 
 				//= clist_archivos.WhenBar;
 			}
 			
@@ -137,12 +136,13 @@ void ProgramaBusqueda::DragAndDrop(Point p, PasteClip& d)
 	
 }
 
+
 void ProgramaBusqueda::LeftDrag(Point p, dword keyflags)
 {
-	if(files.GetCount()) {
+	if(files.GetCount()>0) {
 		VectorMap<String, ClipData> data;
 		AppendFiles(data, files);
-		DoDragAndDrop(data, Null, DND_COPY);
+		//DoDragAndDrop(data, Null, DND_COPY);
 	}
 }
 
@@ -172,24 +172,6 @@ void ProgramaBusqueda::buscar(){
 			
 			
 			String aux_1;
-			
-			//tree_resultado.Add(0,aux_1);
-			//tree_resultado.Add(,"asd");
-			
-			
-			//tree_resultado.Add(0,Node());
-			
-			/* primera version de lectura
-			while (getline (ifstream_archivo, str_aux_text)) {
-				//104.239.146.23
-				if (str_aux_text.find("a") != std::string::npos) {
-					archivo_resultado<<str_aux_text<<"\n";
-					encontrado=true;
-					contador++;
-				}
-			}
-			archivo_resultado<<"\n";
-			*/
 			
 			
 			//lectura de cada linea de texto del archivo de IP's para cada uno de los archivos
