@@ -53,6 +53,9 @@ ProgramaBusqueda::ProgramaBusqueda()
 	clist_archivos.MultiSelect(true);
 	clist_archivos.PopUpEx(false);
 	
+	//configurando propiedades del tree
+	tree_resultado.PopUpEx(false);
+	
 	//sliders color de fondo
 	//bg_rojo.MinMax(0,255);
 	//bg_verde.MinMax(0,255);
@@ -200,7 +203,7 @@ void ProgramaBusqueda::buscar(){
 
 void ProgramaBusqueda::Paint(Draw &w) {
 	
-	w.DrawRect(GetSize(),SColorPaper);
+	//w.DrawRect(GetSize(),SColorPaper);
 	Refresh();
 
 }
