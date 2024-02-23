@@ -11,13 +11,10 @@
 using namespace std;
 
 
-//retorna nombre de tecla presionada
-String GetKeyDescEx(int key){
-	String desc = GetKeyDesc(key & ~K_KEYUP);
-	if(key & K_KEYUP)
-		desc << " UP";
-	return desc;
-}
+//definicion de funciones
+void cargar_configuracion(int* rojo, int* verde, int* azul);
+String GetKeyDescEx(int key);
+
 
 //struct para coordenadas de widget
 struct coordenadasWidget{
@@ -55,18 +52,28 @@ ProgramaBusqueda::ProgramaBusqueda()
 	
 	//configurando propiedades del tree
 	tree_resultado.PopUpEx(false);
+	tree_resultado.OpenDeep(0);
+	//tree_resultado.Open(0);
+	//tree_resultado.SetRoot(0, Null, clist_archivos.GetValue(i));
 	
 	//sliders color de fondo
-	//bg_rojo.MinMax(0,255);
-	//bg_verde.MinMax(0,255);
-	//bg_azul.MinMax(0,255);
+	bg_rojo.MinMax(0,255);
+	bg_verde.MinMax(0,255);
+	bg_azul.MinMax(0,255);
+	
+	//sacando colores del archivo config
+	int r,v,a;
+	cargar_configuracion(&r,&v,&a);
+	bg_rojo.SetData(r);
+	bg_verde.SetData(v);
+	bg_azul.SetData(a);
 	
 	//barra de progreso, configuracion inicial
 	progreso.SetTotal(100);
 	progreso.Set(0);
 	
 	
-	tree_resultado.OpenDeep(0);
+	
 	
 	btn_buscar << [=] { buscar(); };
 }
@@ -155,7 +162,9 @@ void ProgramaBusqueda::buscar(){
 			
 			//añadiendo a tree
 			int x = tree_resultado.Add(0, Null, clist_archivos.GetValue(i));
-		
+			//tree_resultado.SetRoot(0, Null, clist_archivos.GetValue(i));
+			
+			
 			
 			
 			ifstream ifstream_archivoIPs( ( files_ips[0] ).ToStd() );
@@ -170,7 +179,12 @@ void ProgramaBusqueda::buscar(){
 				while (getline (ifstream_archivo, str_aux_text)) {
 					
 					if (str_aux_text.find(str_aux_text_ips) != std::string::npos) {
-						archivo_resultado<<str_aux_text<<"\n";
+						//archivo_resultado<<str_aux_text<<"\n";
+						//tree_resultado.Add(x, Null, str_aux_text);
+						//tree_resultado.Add(x, Null, contador);
+						//tree_resultado.Add(x, Null, "insertando en pruebaX");// nivel 2 dentro de pruebaX
+						//contador++;
+						tree_resultado.Add(x, Null, contador);
 						encontrado=true;
 						contador++;
 					}
@@ -179,6 +193,9 @@ void ProgramaBusqueda::buscar(){
 			}
 			
 		}
+		
+		//tree_resultado.OpenDeep(0);
+		
 		progreso.Set(100);//la barra de progreso de la interfaz grafica se cambia al maximo, para indicar que ya finalizó la busqueda
 		
 		if(encontrado){
@@ -205,11 +222,37 @@ void ProgramaBusqueda::Paint(Draw &w) {
 	
 	//w.DrawRect(GetSize(),SColorPaper);
 	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB
+	tree_resultado.OpenDeep(0);
 	Refresh();
 
 }
+
+void cargar_configuracion(int* rojo, int* verde, int* azul){
+	//ofstream configuracion("config", std::ios::trunc);
+	ifstream configuracion("config");
+	string str_aux_text;
+	
+	//leyendo primera linea del archivo
+	getline(configuracion,str_aux_text);
+	
+	str_aux_text.find(",");
+	
+	*rojo=120;
+	*verde=120;
+	*azul=120;
+}
+
+//retorna nombre de tecla presionada
+String GetKeyDescEx(int key){
+	String desc = GetKeyDesc(key & ~K_KEYUP);
+	if(key & K_KEYUP)
+		desc << " UP";
+	return desc;
+}
+
 
 GUI_APP_MAIN
 {
 	ProgramaBusqueda().Zoomable().Sizeable().Run();
 }
+
