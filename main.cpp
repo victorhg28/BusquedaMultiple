@@ -49,15 +49,13 @@ void ProgramaBusqueda::Close(){
 	//PromptOK("cerrando");
 	//lbl_2.SetText(AsString(~bg_rojo));
 	
+	//guardando configuracion
+	//ofstream exp_config("configuracion_exportada.txt", std::ios::trunc);
+	ofstream exp_config("config", std::ios::trunc);
+	exp_config<<AsString(~bg_rojo).ToStd();
+	exp_config.close();
 	
-	//Este funciona
-	PromptOK(AsString(~bg_rojo));
-	
-	
-	
-	//Close();
-	//AcceptBreak(IDOK);
-	
+	//cerrando programa
 	delete this;
 }
 
@@ -71,15 +69,17 @@ ProgramaBusqueda::ProgramaBusqueda()
 	bg_azul.MinMax(0,255);
 	
 	
-	//otro ini
-	//IniFile p;
+	
+	//leyendo archivo configuracion
+	ifstream archivo_config( "config" );
+	string str_temp;
+	getline (archivo_config, str_temp);
+	bg_rojo.SetData(stoi(str_temp));
 	
 	
-	//probando ini
-	SetIniFile(GetDataFile("config.ini"));
-	PromptOK((String)to_string((int)Config::rojoFondo));
-	//sacando colores del archivo config
-	bg_rojo.SetData((int)Config::rojoFondo);
+	
+	
+	
 	//bg_verde.SetData(v);
 	//bg_azul.SetData(a);
 	
@@ -241,6 +241,8 @@ void ProgramaBusqueda::buscar(){
 				}
 				archivo_resultado<<"\n";
 			}
+			
+			archivo_resultado.close();
 			
 		}
 		
