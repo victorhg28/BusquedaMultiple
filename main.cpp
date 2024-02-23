@@ -40,6 +40,16 @@ bool ProgramaBusqueda::Key(dword key, int count)
 }
 
 //constructor
+void ProgramaBusqueda::Close(){
+	
+	Config::rojoFondo=~bg_rojo;
+	PromptOK("cerrando");
+	//lbl_2.SetText(AsString(~bg_rojo));
+	//Close();
+	//AcceptBreak(IDOK);
+	delete this;
+}
+
 ProgramaBusqueda::ProgramaBusqueda()
 {
 	CtrlLayout(*this, "Busqueda");
@@ -162,6 +172,12 @@ void ProgramaBusqueda::LeftDrag(Point p, dword keyflags)
 
 
 void ProgramaBusqueda::buscar(){
+	
+	
+	//Color(StrInt(AsString(~bg_rojo))
+	//StrInt(AsString(~bg_rojo)
+	//PromptOK((String)bg_rojo.GetData());
+	//lbl_2.SetText(AsString(~bg_rojo));
 	
 	if(clist_archivos.GetCount()!=0){
 		

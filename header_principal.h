@@ -18,31 +18,6 @@ using namespace std;
 #define LAYOUTFILE <BusquedaIPs/GUI.lay>
 #include <CtrlCore/lay.h>
 
-//Otras Funciones
-void guardar_configuracion(int* rojo, int *verde, int *azul){
-	ifstream configuracion("config");
-	string str_aux_text;
-	
-	//leyendo primera linea del archivo
-	//getline(configuracion,str_aux_text);
-	
-	/*
-	while (getline (ifstream_archivo, str_aux_text)) {
-		if (str_aux_text.find(str_aux_text_ips) != std::string::npos) {
-			//archivo_resultado<<str_aux_text<<"\n";
-			//tree_resultado.Add(x, Null, str_aux_text);
-			//tree_resultado.Add(x, Null, contador);
-			//tree_resultado.Add(x, Null, "insertando en pruebaX");// nivel 2 dentro de pruebaX
-			//contador++;
-			tree_resultado.Add(x, Null, contador);
-			encontrado=true;
-			contador++;
-		}
-	}*/
-}
-
-
-
 
 //Clase
 class ProgramaBusqueda : public Withlayout_principal<TopWindow> {
@@ -53,6 +28,7 @@ public:
 	virtual void Paint(Draw &w) override;
 	//virtual void WhenBar() ;
 	virtual bool Key(dword key, int count) override;
+	virtual void Close() override;
 	
 	
 	//para manejar submenu al hacer click derecho
