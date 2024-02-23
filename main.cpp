@@ -11,11 +11,10 @@
 using namespace std;
 
 namespace Config {
-	INI_INT(rojo, 123456, "Number parameter");
+	INI_INT(rojoFondo, 123456, "Number parameter");
 };
 
 //definicion de funciones
-void cargar_configuracion(int* rojo, int* verde, int* azul);
 String GetKeyDescEx(int key);
 
 
@@ -45,9 +44,22 @@ ProgramaBusqueda::ProgramaBusqueda()
 {
 	CtrlLayout(*this, "Busqueda");
 	
+	//sliders color de fondo
+	bg_rojo.MinMax(0,255);
+	bg_verde.MinMax(0,255);
+	bg_azul.MinMax(0,255);
+	
 	//probando ini
 	SetIniFile(GetDataFile("config.ini"));
-	PromptOK((String)to_string((int)Config::rojo));
+	PromptOK((String)to_string((int)Config::rojoFondo));
+	//sacando colores del archivo config
+	bg_rojo.SetData((int)Config::rojoFondo);
+	//bg_verde.SetData(v);
+	//bg_azul.SetData(a);
+	
+	
+	
+	
 	
 	Icon(IconoPrograma::mi_icono());//icono del programa
 	
@@ -65,17 +77,14 @@ ProgramaBusqueda::ProgramaBusqueda()
 	
 	
 	
-	//sliders color de fondo
-	bg_rojo.MinMax(0,255);
-	bg_verde.MinMax(0,255);
-	bg_azul.MinMax(0,255);
+	
 	
 	//sacando colores del archivo config
-	int r,v,a;
-	cargar_configuracion(&r,&v,&a);
-	bg_rojo.SetData(r);
-	bg_verde.SetData(v);
-	bg_azul.SetData(a);
+	//int r,v,a;
+	//cargar_configuracion(&r,&v,&a);
+	//bg_rojo.SetData(r);
+	//bg_verde.SetData(v);
+	//bg_azul.SetData(a);
 	
 	//barra de progreso, configuracion inicial
 	progreso.SetTotal(100);
@@ -234,25 +243,6 @@ void ProgramaBusqueda::Paint(Draw &w) {
 	tree_resultado.OpenDeep(0);
 	Refresh();
 
-}
-
-void cargar_configuracion(int* rojo, int* verde, int* azul){
-	//ofstream configuracion("config", std::ios::trunc);
-	ifstream configuracion("config.txt");
-	string str_aux_text;
-	
-	//leyendo primera linea del archivo
-	//getline(configuracion,str_aux_text);
-	
-	//str_aux_text.find(",");
-	//int x=stoi(str_aux_text.substr(0,str_aux_text.find(",")));
-	
-	//*rojo = x;
-	//PromptOK((String)to_string(x));
-	//PromptOK((String)str_aux_text);
-	*rojo=120;
-	*verde=120;
-	*azul=120;
 }
 
 //retorna nombre de tecla presionada
