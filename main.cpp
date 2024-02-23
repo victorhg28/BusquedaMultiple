@@ -42,11 +42,22 @@ bool ProgramaBusqueda::Key(dword key, int count)
 //constructor
 void ProgramaBusqueda::Close(){
 	
-	Config::rojoFondo=~bg_rojo;
-	PromptOK("cerrando");
+	//Config::rojoFondo=~bg_rojo;
+	//Config::rojoFondo=bg_rojo.GetData();
+	
+	
+	//PromptOK("cerrando");
 	//lbl_2.SetText(AsString(~bg_rojo));
+	
+	
+	//Este funciona
+	PromptOK(AsString(~bg_rojo));
+	
+	
+	
 	//Close();
 	//AcceptBreak(IDOK);
+	
 	delete this;
 }
 
@@ -58,6 +69,11 @@ ProgramaBusqueda::ProgramaBusqueda()
 	bg_rojo.MinMax(0,255);
 	bg_verde.MinMax(0,255);
 	bg_azul.MinMax(0,255);
+	
+	
+	//otro ini
+	//IniFile p;
+	
 	
 	//probando ini
 	SetIniFile(GetDataFile("config.ini"));
