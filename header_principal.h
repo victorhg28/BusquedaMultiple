@@ -2,6 +2,7 @@
 #define _header_principal_h
 
 #include <CtrlLib/CtrlLib.h>
+#include <Core/Core.h>
 
 using namespace Upp;
 
@@ -10,6 +11,9 @@ using namespace Upp;
 #include <iostream>
 
 using namespace std;
+
+
+
 
 #define LAYOUTFILE <BusquedaIPs/GUI.lay>
 #include <CtrlCore/lay.h>

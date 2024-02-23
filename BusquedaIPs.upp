@@ -3,6 +3,7 @@ uses
 
 file
 	header_principal.h,
+	config.ini,
 	funciones_utiles.h,
 	main.cpp,
 	icono_principal.iml,

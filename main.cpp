@@ -10,6 +10,9 @@
 
 using namespace std;
 
+namespace Config {
+	INI_INT(rojo, 123456, "Number parameter");
+};
 
 //definicion de funciones
 void cargar_configuracion(int* rojo, int* verde, int* azul);
@@ -42,6 +45,10 @@ ProgramaBusqueda::ProgramaBusqueda()
 {
 	CtrlLayout(*this, "Busqueda");
 	
+	//probando ini
+	SetIniFile(GetDataFile("config.ini"));
+	PromptOK((String)to_string((int)Config::rojo));
+	
 	Icon(IconoPrograma::mi_icono());//icono del programa
 	
 	//configurando propiedades del columnlist
@@ -55,6 +62,8 @@ ProgramaBusqueda::ProgramaBusqueda()
 	tree_resultado.OpenDeep(0);
 	//tree_resultado.Open(0);
 	//tree_resultado.SetRoot(0, Null, clist_archivos.GetValue(i));
+	
+	
 	
 	//sliders color de fondo
 	bg_rojo.MinMax(0,255);
@@ -233,14 +242,14 @@ void cargar_configuracion(int* rojo, int* verde, int* azul){
 	string str_aux_text;
 	
 	//leyendo primera linea del archivo
-	getline(configuracion,str_aux_text);
+	//getline(configuracion,str_aux_text);
 	
 	//str_aux_text.find(",");
 	//int x=stoi(str_aux_text.substr(0,str_aux_text.find(",")));
 	
 	//*rojo = x;
 	//PromptOK((String)to_string(x));
-	PromptOK((String)str_aux_text);
+	//PromptOK((String)str_aux_text);
 	*rojo=120;
 	*verde=120;
 	*azul=120;
