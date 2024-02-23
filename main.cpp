@@ -229,14 +229,18 @@ void ProgramaBusqueda::Paint(Draw &w) {
 
 void cargar_configuracion(int* rojo, int* verde, int* azul){
 	//ofstream configuracion("config", std::ios::trunc);
-	ifstream configuracion("config");
+	ifstream configuracion("config.txt");
 	string str_aux_text;
 	
 	//leyendo primera linea del archivo
 	getline(configuracion,str_aux_text);
 	
-	str_aux_text.find(",");
+	//str_aux_text.find(",");
+	//int x=stoi(str_aux_text.substr(0,str_aux_text.find(",")));
 	
+	//*rojo = x;
+	//PromptOK((String)to_string(x));
+	PromptOK((String)str_aux_text);
 	*rojo=120;
 	*verde=120;
 	*azul=120;
