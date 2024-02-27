@@ -104,9 +104,16 @@ ProgramaBusqueda::ProgramaBusqueda()
 	
 	//configurando propiedades del tree
 	tree_resultado.PopUpEx(false);
-	tree_resultado.OpenDeep(0);
+	
+	
+	
+	
+	//tree_resultado.OpenDeep(0);
 	//tree_resultado.Open(0);
 	//tree_resultado.SetRoot(0, Null, clist_archivos.GetValue(i));
+	//tree_resultado.SetRoot(0, Null, "rootu");
+	
+	
 	
 	
 	
@@ -197,15 +204,34 @@ void ProgramaBusqueda::LeftDrag(Point p, dword keyflags)
 void ProgramaBusqueda::buscar(){
 	
 	
-	//Color(StrInt(AsString(~bg_rojo))
-	//StrInt(AsString(~bg_rojo)
-	//PromptOK((String)bg_rojo.GetData());
-	//lbl_2.SetText(AsString(~bg_rojo));
+	//Borra datos anteriores del resultado
+	tree_resultado.Clear();
+	tree_resultado.Set(0,"Resultados");
+	
+	
+	/*
+	if(clist_archivos.GetCount()!=0){
+		for(int i=0;i<clist_archivos.GetCount();i++){
+			tree_resultado.Add(0,Null,clist_archivos.GetValue(i));
+		}
+	}
+	//añadiendo a segundo nivel 1er elemento
+	tree_resultado.Add(1,Null,"bc6");
+	tree_resultado.Add(1,Null,"bc7");
+	//añadiendo a segundo nivel 2do elemento
+	tree_resultado.Add(2,Null,"ac6");
+	tree_resultado.Add(2,Null,"ac7");
+	
+	*/
+	
+	
 	
 	if(clist_archivos.GetCount()!=0){
 		
 		bool encontrado=false; //cambia a true cuando se encuentra por lo menos en alguna linea de texto de los archivos cargados
 		int contador=0; //para mostrar la cantidad de veces que se encontró el resultado
+		int x=0;
+		
 		
 		string str_aux_text=""; // variable temporal para usar en la lectura de lineas de los archivos de texto cargados
 		
@@ -218,7 +244,8 @@ void ProgramaBusqueda::buscar(){
 			archivo_resultado<<"["<<(clist_archivos.GetValue(i)).ToStd()<<"]\n";
 			
 			//añadiendo a tree
-			int x = tree_resultado.Add(0, Null, clist_archivos.GetValue(i));
+			tree_resultado.Add(0, Null, clist_archivos.GetValue(i));
+			x++;
 			//tree_resultado.SetRoot(0, Null, clist_archivos.GetValue(i));
 			
 			
@@ -241,7 +268,9 @@ void ProgramaBusqueda::buscar(){
 						//tree_resultado.Add(x, Null, contador);
 						//tree_resultado.Add(x, Null, "insertando en pruebaX");// nivel 2 dentro de pruebaX
 						//contador++;
-						tree_resultado.Add(x, Null, contador);
+						//tree_resultado.Add(i+1, Null, contador);
+						//tree_resultado.Add(i+1, Null, str_aux_text);
+						tree_resultado.Add(x, Null, str_aux_text);
 						encontrado=true;
 						contador++;
 					}
@@ -250,6 +279,9 @@ void ProgramaBusqueda::buscar(){
 			}
 			
 			archivo_resultado.close();
+			ifstream_archivoIPs.close();
+			
+			ifstream_archivo.close();
 			
 		}
 		
@@ -272,6 +304,8 @@ void ProgramaBusqueda::buscar(){
 	else{
 		PromptOK("Suba algún archivo");
 	}
+	
+	
 	
 	
 }
