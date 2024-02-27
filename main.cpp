@@ -52,7 +52,9 @@ void ProgramaBusqueda::Close(){
 	//guardando configuracion
 	//ofstream exp_config("configuracion_exportada.txt", std::ios::trunc);
 	ofstream exp_config("config", std::ios::trunc);
-	exp_config<<AsString(~bg_rojo).ToStd();
+	exp_config<<AsString(~bg_rojo).ToStd()<<"\n";
+	exp_config<<AsString(~bg_verde).ToStd()<<"\n";
+	exp_config<<AsString(~bg_azul).ToStd();
 	exp_config.close();
 	
 	//cerrando programa
@@ -68,16 +70,21 @@ ProgramaBusqueda::ProgramaBusqueda()
 	bg_verde.MinMax(0,255);
 	bg_azul.MinMax(0,255);
 	
-	
-	
+
 	//leyendo archivo configuracion
 	ifstream archivo_config( "config" );
 	string str_temp;
-	getline (archivo_config, str_temp);
-	bg_rojo.SetData(stoi(str_temp));
-	
-	
-	
+		//leyendo primera linea (color rojo)
+		getline (archivo_config, str_temp);
+		bg_rojo.SetData(stoi(str_temp));
+		//leyendo segunda linea (color verde)
+		getline (archivo_config, str_temp);
+		bg_verde.SetData(stoi(str_temp));
+		//leyendo segunda linea (color azul)
+		getline (archivo_config, str_temp);
+		bg_azul.SetData(stoi(str_temp));
+	//cerrando archivo
+	archivo_config.close();
 	
 	
 	//bg_verde.SetData(v);
