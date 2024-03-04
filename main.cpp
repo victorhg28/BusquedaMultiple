@@ -14,6 +14,7 @@ namespace Config {
 	INI_INT(rojoFondo, 123456, "Number parameter");
 };
 
+
 //definicion de funciones
 String GetKeyDescEx(int key);
 
@@ -91,6 +92,9 @@ ProgramaBusqueda::ProgramaBusqueda()
 	//bg_azul.SetData(a);
 	
 	
+
+	
+	//tree_resultado.SetScrollBarStyle(ScrollBar::StyleDefault());
 	
 	
 	
@@ -201,31 +205,21 @@ void ProgramaBusqueda::LeftDrag(Point p, dword keyflags)
 }
 
 
+
+
 void ProgramaBusqueda::buscar(){
-	
 	
 	//Borra datos anteriores del resultado
 	tree_resultado.Clear();
 	tree_resultado.Set(0,"Resultados");
+	progreso.Set(0);
 	
+	//tree_resultado.SetScrollBarStyl(StyleNormal());
+	//TreeCtrl
+	//doc_busqueda.
+	//DocEdit
 	
-	/*
-	if(clist_archivos.GetCount()!=0){
-		for(int i=0;i<clist_archivos.GetCount();i++){
-			tree_resultado.Add(0,Null,clist_archivos.GetValue(i));
-		}
-	}
-	//añadiendo a segundo nivel 1er elemento
-	tree_resultado.Add(1,Null,"bc6");
-	tree_resultado.Add(1,Null,"bc7");
-	//añadiendo a segundo nivel 2do elemento
-	tree_resultado.Add(2,Null,"ac6");
-	tree_resultado.Add(2,Null,"ac7");
-	
-	*/
-	
-	
-	
+	//verificando que se hayan cargado archivos
 	if(clist_archivos.GetCount()!=0){
 		
 		bool encontrado=false; //cambia a true cuando se encuentra por lo menos en alguna linea de texto de los archivos cargados
@@ -233,60 +227,44 @@ void ProgramaBusqueda::buscar(){
 		int x=0;
 		
 		
-		string str_aux_text=""; // variable temporal para usar en la lectura de lineas de los archivos de texto cargados
-		
+		//strings temporales para guardar lineas leídas
+		string str_aux_text="";
 		string str_aux_text_ips="";
 		
-		ofstream archivo_resultado("resultado_busqueda.txt", std::ios::trunc);
 		
 		for(int i=0;i<clist_archivos.GetCount();i++){
+			//PromptOK((String)to_string(i));
 			ifstream ifstream_archivo( (clist_archivos.GetValue(i)).ToStd() );
-			archivo_resultado<<"["<<(clist_archivos.GetValue(i)).ToStd()<<"]\n";
-			
-			//añadiendo a tree
-			tree_resultado.Add(0, Null, clist_archivos.GetValue(i));
-			x++;
-			//tree_resultado.SetRoot(0, Null, clist_archivos.GetValue(i));
-			
-			
-			
-			
 			ifstream ifstream_archivoIPs( ( files_ips[0] ).ToStd() );
 			
 			
-			String aux_1;
-			
-			
-			//lectura de cada linea de texto del archivo de IP's para cada uno de los archivos
-			//cargados
+			//añadiendo a tree
+			x=tree_resultado.Add(0, Null, clist_archivos.GetValue(i));
+		
+			//lectura de cada linea
 			while (getline (ifstream_archivoIPs, str_aux_text_ips)) {
 				while (getline (ifstream_archivo, str_aux_text)) {
-					
+				
+		
 					if (str_aux_text.find(str_aux_text_ips) != std::string::npos) {
-						//archivo_resultado<<str_aux_text<<"\n";
-						//tree_resultado.Add(x, Null, str_aux_text);
-						//tree_resultado.Add(x, Null, contador);
-						//tree_resultado.Add(x, Null, "insertando en pruebaX");// nivel 2 dentro de pruebaX
-						//contador++;
-						//tree_resultado.Add(i+1, Null, contador);
+						
 						//tree_resultado.Add(i+1, Null, str_aux_text);
 						tree_resultado.Add(x, Null, str_aux_text);
 						encontrado=true;
 						contador++;
 					}
 				}
-				archivo_resultado<<"\n";
 			}
 			
-			archivo_resultado.close();
-			ifstream_archivoIPs.close();
 			
+			
+			//cerrando archivos
+			ifstream_archivoIPs.close();
 			ifstream_archivo.close();
 			
 		}
 		
-		//tree_resultado.OpenDeep(0);
-		
+		//TreeCtrl 
 		progreso.Set(100);//la barra de progreso de la interfaz grafica se cambia al maximo, para indicar que ya finalizó la busqueda
 		
 		if(encontrado){
@@ -305,18 +283,16 @@ void ProgramaBusqueda::buscar(){
 		PromptOK("Suba algún archivo");
 	}
 	
-	
-	
-	
+	Refresh();
 }
 
 
 void ProgramaBusqueda::Paint(Draw &w) {
 	
-	//w.DrawRect(GetSize(),SColorPaper);
+	
 	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB
-	tree_resultado.OpenDeep(0);
-	Refresh();
+	
+	//Refresh();
 
 }
 
