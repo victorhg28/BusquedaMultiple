@@ -49,6 +49,8 @@ void ProgramaBusqueda::Close(){
 
 ProgramaBusqueda::ProgramaBusqueda()
 {
+	
+	
 	CtrlLayout(*this, "Busqueda");
 	
 	//leyendo archivo configuracion (para color de fondo)
@@ -73,6 +75,12 @@ ProgramaBusqueda::ProgramaBusqueda()
 	
 	//lambdas para botones
 	btn_buscar << [=] { buscar(); };
+	
+	//DrawDrawingOp();
+	
+	//DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB	
+	
+	
 }
 
 
@@ -211,13 +219,14 @@ void ProgramaBusqueda::buscar(){
 		PromptOK("Suba algún archivo");
 	}
 	
-	//Refresh();
+	//Refresh()
 }
 
 
 void ProgramaBusqueda::Paint(Draw &w) {
+	
 	//Pintando el fondo del color escogido
-	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB
+	miPicture.Background(Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));
 	
 }
 
@@ -228,6 +237,7 @@ String GetKeyDescEx(int key){
 		desc << " UP";
 	return desc;
 }
+
 
 void ProgramaBusqueda::configuracionInicialWidgets(){
 	//sliders color de fondo
@@ -249,9 +259,43 @@ void ProgramaBusqueda::configuracionInicialWidgets(){
 	progreso.Set(0);
 };
 
-
 GUI_APP_MAIN
 {
 	ProgramaBusqueda().Zoomable().Sizeable().Run();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
