@@ -47,9 +47,22 @@ void ProgramaBusqueda::Close(){
 	delete this;
 }
 
+void ProgramaBusqueda::SliderColorFondo() {
+
+        //dynarect.SetRectX(50, ~slider);
+
+        //text = "\1[C6*/@b " + AsString(~slider);
+        //PromptOK("asdaa");
+        miPicture.Background(Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));
+
+    }
+
 ProgramaBusqueda::ProgramaBusqueda()
 {
 	
+	int v_rojo=0;
+	int v_verde=0;
+	int v_azul=0;
 	
 	CtrlLayout(*this, "Busqueda");
 	
@@ -58,12 +71,19 @@ ProgramaBusqueda::ProgramaBusqueda()
 	string str_temp;
 		getline (archivo_config, str_temp);//leyendo primera linea (color rojo)
 		bg_rojo.SetData(stoi(str_temp));
+		v_rojo=stoi(str_temp);
 		
 		getline (archivo_config, str_temp);//leyendo segunda linea (color verde)
 		bg_verde.SetData(stoi(str_temp));
+		v_verde=stoi(str_temp);
 		
 		getline (archivo_config, str_temp);//leyendo segunda linea (color azul)
 		bg_azul.SetData(stoi(str_temp));
+		v_azul=stoi(str_temp);
+		
+		//actualizando en interfaz
+		miPicture.Background(Color(v_rojo,v_verde,v_azul));
+		
 	//cerrando archivo
 	archivo_config.close();
 	
@@ -75,6 +95,12 @@ ProgramaBusqueda::ProgramaBusqueda()
 	
 	//lambdas para botones
 	btn_buscar << [=] { buscar(); };
+	
+	bg_rojo << [=] { SliderColorFondo(); };
+	bg_azul << [=] { SliderColorFondo(); };
+	bg_verde << [=] { SliderColorFondo(); };
+	
+	//bg_rojo << THISFN(SliderRojo);
 	
 	//DrawDrawingOp();
 	
@@ -145,6 +171,9 @@ void ProgramaBusqueda::LeftDrag(Point p, dword keyflags)
 }
 
 void ProgramaBusqueda::buscar(){
+	
+	//PromptOK((String)bg_rojo.GetData());
+	//SliderCtrl
 	
 	//Borra datos anteriores del resultado
 	tree_resultado.Clear();
@@ -226,8 +255,8 @@ void ProgramaBusqueda::buscar(){
 void ProgramaBusqueda::Paint(Draw &w) {
 	
 	//Pintando el fondo del color escogido
-	miPicture.Background(Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));
-	
+	//miPicture.Background(Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));
+	//Promptbg_rojo.GetData();
 }
 
 //retorna nombre de tecla presionada

@@ -46,6 +46,8 @@ public:
 	//mis variables
 	//std::string archivoMML="";
 	
+	void SliderColorFondo();
+	
 
 	//constructor
 	ProgramaBusqueda();
