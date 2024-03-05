@@ -211,13 +211,14 @@ void ProgramaBusqueda::buscar(){
 		PromptOK("Suba algún archivo");
 	}
 	
-	Refresh();
+	//Refresh();
 }
 
 
 void ProgramaBusqueda::Paint(Draw &w) {
 	//Pintando el fondo del color escogido
 	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB
+	
 }
 
 //retorna nombre de tecla presionada
