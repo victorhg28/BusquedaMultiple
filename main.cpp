@@ -10,11 +10,6 @@
 
 using namespace std;
 
-namespace Config {
-	INI_INT(rojoFondo, 123456, "Number parameter");
-};
-
-
 //definicion de funciones
 String GetKeyDescEx(int key);
 
@@ -32,8 +27,6 @@ bool ProgramaBusqueda::Key(dword key, int count)
 {
 	if(GetKeyDescEx(key)=="Delete"){
 		if (clist_archivos.GetCount()!=0) {
-			//clist_archivos.Remove(clist_archivos.GetCursor());
-			//clist_archivos.Remove(clist_archivos.RemoveSelection());
 			clist_archivos.RemoveSelection();
 		}
 	}
@@ -43,22 +36,14 @@ bool ProgramaBusqueda::Key(dword key, int count)
 //constructor
 void ProgramaBusqueda::Close(){
 	
-	//Config::rojoFondo=~bg_rojo;
-	//Config::rojoFondo=bg_rojo.GetData();
-	
-	
-	//PromptOK("cerrando");
-	//lbl_2.SetText(AsString(~bg_rojo));
-	
-	//guardando configuracion
-	//ofstream exp_config("configuracion_exportada.txt", std::ios::trunc);
+	//Guardando configuracion de colores
 	ofstream exp_config("config", std::ios::trunc);
 	exp_config<<AsString(~bg_rojo).ToStd()<<"\n";
 	exp_config<<AsString(~bg_verde).ToStd()<<"\n";
 	exp_config<<AsString(~bg_azul).ToStd();
 	exp_config.close();
 	
-	//cerrando programa
+	//cerrando el programa
 	delete this;
 }
 
@@ -66,77 +51,27 @@ ProgramaBusqueda::ProgramaBusqueda()
 {
 	CtrlLayout(*this, "Busqueda");
 	
-	//sliders color de fondo
-	bg_rojo.MinMax(0,255);
-	bg_verde.MinMax(0,255);
-	bg_azul.MinMax(0,255);
-	
-
-	//leyendo archivo configuracion
+	//leyendo archivo configuracion (para color de fondo)
 	ifstream archivo_config( "config" );
 	string str_temp;
-		//leyendo primera linea (color rojo)
-		getline (archivo_config, str_temp);
+		getline (archivo_config, str_temp);//leyendo primera linea (color rojo)
 		bg_rojo.SetData(stoi(str_temp));
-		//leyendo segunda linea (color verde)
-		getline (archivo_config, str_temp);
+		
+		getline (archivo_config, str_temp);//leyendo segunda linea (color verde)
 		bg_verde.SetData(stoi(str_temp));
-		//leyendo segunda linea (color azul)
-		getline (archivo_config, str_temp);
+		
+		getline (archivo_config, str_temp);//leyendo segunda linea (color azul)
 		bg_azul.SetData(stoi(str_temp));
 	//cerrando archivo
 	archivo_config.close();
 	
+	//icono del programa
+	Icon(IconoPrograma::mi_icono());
 	
-	//bg_verde.SetData(v);
-	//bg_azul.SetData(a);
+	//configurando algunas propiedades de los widgets usados
+	configuracionInicialWidgets();
 	
-	
-
-	
-	//tree_resultado.SetScrollBarStyle(ScrollBar::StyleDefault());
-	
-	
-	
-	Icon(IconoPrograma::mi_icono());//icono del programa
-	
-	//configurando propiedades del columnlist
-	clist_archivos.Mode(Upp::ColumnList::MODE_COLUMN);
-	clist_archivos.ClickKill(true);
-	clist_archivos.MultiSelect(true);
-	clist_archivos.PopUpEx(false);
-	
-	//configurando propiedades del tree
-	tree_resultado.PopUpEx(false);
-	
-	
-	
-	
-	//tree_resultado.OpenDeep(0);
-	//tree_resultado.Open(0);
-	//tree_resultado.SetRoot(0, Null, clist_archivos.GetValue(i));
-	//tree_resultado.SetRoot(0, Null, "rootu");
-	
-	
-	
-	
-	
-	
-	
-	//sacando colores del archivo config
-	//int r,v,a;
-	//cargar_configuracion(&r,&v,&a);
-	//bg_rojo.SetData(r);
-	//bg_verde.SetData(v);
-	//bg_azul.SetData(a);
-	
-	//barra de progreso, configuracion inicial
-	progreso.SetTotal(100);
-	progreso.Set(0);
-	
-	
-	
-	
+	//lambdas para botones
 	btn_buscar << [=] { buscar(); };
 }
 
@@ -151,7 +86,7 @@ void ProgramaBusqueda::DragAndDrop(Point p, PasteClip& d)
 	coordenadas.x1 = clist_archivos.GetRect().BottomRight().x;
 	coordenadas.y1 = clist_archivos.GetRect().BottomRight().y;
 	
-	//Condicional para que solo permita arrastrar y soltar dentro del widget esperado (de archivos MML's)
+	//Condicional para que solo permita arrastrar y soltar dentro del widget esperado (de "archivo(s) donde se realizará la busqueda")
 	if(p.x>=coordenadas.x0 && p.y>=coordenadas.y0 && p.x<=coordenadas.x1 && p.y<=coordenadas.y1){
 		if(IsDragAndDropSource())
 			return;
@@ -161,9 +96,6 @@ void ProgramaBusqueda::DragAndDrop(Point p, PasteClip& d)
 			//añadiendo archivos a columnList
 			for(int i=0;i<files.GetCount();i++){
 				clist_archivos.Add(files[i]);
-				
-				//Bar clickDerecho;
-				//= clist_archivos.WhenBar;
 			}
 			
 			Refresh();
@@ -175,14 +107,14 @@ void ProgramaBusqueda::DragAndDrop(Point p, PasteClip& d)
 	coordenadas.x1 = lbl_ips.GetRect().BottomRight().x;
 	coordenadas.y1 = lbl_ips.GetRect().BottomRight().y;
 	
-	//Condicional para que solo permita arrastrar y soltar dentro del widget esperado (de archivo de IPs)
+	//Condicional para que solo permita arrastrar y soltar dentro del widget esperado (de "archivo con texto a buscar")
 	if(p.x>=coordenadas.x0 && p.y>=coordenadas.y0 && p.x<=coordenadas.x1 && p.y<=coordenadas.y1){
 		if(IsDragAndDropSource())
 			return;
 		
 		if(AcceptFiles(d)) {
 			
-			//añadiendo archivo de IPs a variable y mostrando la ruta en el label "lbl_ips"
+			//añadiendo archivo a variable y mostrando la ruta en el label "lbl_ips"
 			files_ips = GetFiles(d);
 			lbl_ips.SetText(files_ips[0]);
 			
@@ -204,9 +136,6 @@ void ProgramaBusqueda::LeftDrag(Point p, dword keyflags)
 	}
 }
 
-
-
-
 void ProgramaBusqueda::buscar(){
 	
 	//Borra datos anteriores del resultado
@@ -214,8 +143,7 @@ void ProgramaBusqueda::buscar(){
 	tree_resultado.Set(0,"Resultados");
 	progreso.Set(0);
 	
-	//tree_resultado.SetScrollBarStyl(StyleNormal());
-	//TreeCtrl
+	
 	//doc_busqueda.
 	//DocEdit
 	
@@ -288,12 +216,8 @@ void ProgramaBusqueda::buscar(){
 
 
 void ProgramaBusqueda::Paint(Draw &w) {
-	
-	
+	//Pintando el fondo del color escogido
 	w.DrawRect(GetSize(),Color(StrInt(AsString(~bg_rojo)), StrInt(AsString(~bg_verde)), StrInt(AsString(~bg_azul))));//RGB
-	
-	//Refresh();
-
 }
 
 //retorna nombre de tecla presionada
@@ -303,6 +227,26 @@ String GetKeyDescEx(int key){
 		desc << " UP";
 	return desc;
 }
+
+void ProgramaBusqueda::configuracionInicialWidgets(){
+	//sliders color de fondo
+	bg_rojo.MinMax(0,255);
+	bg_verde.MinMax(0,255);
+	bg_azul.MinMax(0,255);
+	
+	//configurando propiedades del columnlist
+	clist_archivos.Mode(Upp::ColumnList::MODE_COLUMN);
+	clist_archivos.ClickKill(false);
+	clist_archivos.MultiSelect(true);
+	clist_archivos.PopUpEx(false);
+	
+	//configurando propiedades del tree (Resultado)
+	tree_resultado.PopUpEx(false);
+	
+	//barra de progreso, configuracion inicial
+	progreso.SetTotal(100);
+	progreso.Set(0);
+};
 
 
 GUI_APP_MAIN
