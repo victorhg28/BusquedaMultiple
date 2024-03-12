@@ -59,6 +59,9 @@ void ProgramaBusqueda::SliderColorFondo() {
 
 ProgramaBusqueda::ProgramaBusqueda()
 {
+	//icono del programa
+	Icon(IconoPrograma::mi_icono());
+	
 	
 	int v_rojo=0;
 	int v_verde=0;
@@ -87,8 +90,7 @@ ProgramaBusqueda::ProgramaBusqueda()
 	//cerrando archivo
 	archivo_config.close();
 	
-	//icono del programa
-	Icon(IconoPrograma::mi_icono());
+	
 	
 	//configurando algunas propiedades de los widgets usados
 	configuracionInicialWidgets();
