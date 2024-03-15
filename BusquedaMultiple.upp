@@ -1,0 +1,13 @@
+uses
+	CtrlLib;
+
+file
+	header_principal.h,
+	IconoDelEjecutable.rc,
+	main.cpp,
+	icono_principal.iml,
+	GUI.lay;
+
+mainconfig
+	"" = "GUI";
+
