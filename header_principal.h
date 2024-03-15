@@ -15,7 +15,7 @@ using namespace std;
 
 
 
-#define LAYOUTFILE <BusquedaIPs/GUI.lay>
+#define LAYOUTFILE <BusquedaMultiple/GUI.lay>
 #include <CtrlCore/lay.h>
 
 

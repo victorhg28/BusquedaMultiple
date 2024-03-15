@@ -1,5 +1,5 @@
 LAYOUT(layout_principal, 792, 428)
-	ITEM(Picture, miPicture, LeftPosZ(4, 780).TopPosZ(4, 416))
+	ITEM(Picture, miPicture, HSizePosZ(4, 8).VSizePosZ(4, 8))
 	ITEM(Upp::ColumnList, clist_archivos, LeftPosZ(24, 340).VSizePosZ(48, 280))
 	ITEM(Upp::Button, btn_buscar, SetLabel(t_("Buscar")).LeftPosZ(28, 340).BottomPosZ(156, 20))
 	ITEM(Upp::Label, lbl_mml, SetLabel(t_("archivo(s) donde se realizará la busqueda")).LeftPosZ(24, 340).TopPosZ(20, 20))

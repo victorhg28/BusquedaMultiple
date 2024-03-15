@@ -5,7 +5,7 @@
 #include <string>
 
 #define IMAGECLASS IconoPrograma
-#define  IMAGEFILE <BusquedaIPs/icono_principal.iml>
+#define  IMAGEFILE <BusquedaMultiple/icono_principal.iml>
 #include <Draw/iml.h>
 
 using namespace std;
@@ -33,7 +33,7 @@ bool ProgramaBusqueda::Key(dword key, int count)
 	return false;
 }
 
-//constructor
+
 void ProgramaBusqueda::Close(){
 	
 	//Guardando configuracion de colores
@@ -57,11 +57,11 @@ void ProgramaBusqueda::SliderColorFondo() {
 
     }
 
+//constructor
 ProgramaBusqueda::ProgramaBusqueda()
 {
 	//icono del programa
 	Icon(IconoPrograma::mi_icono());
-	
 	
 	int v_rojo=0;
 	int v_verde=0;
