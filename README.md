@@ -1,9 +1,9 @@
 # BusquedaMultiple
 Busque multiples palabras o lineas de texto en varios archivos | Search multiple words or text lines in multiple files
 
-https://img.shields.io/badge/estado-en_desarrollo-green
-https://img.shields.io/badge/disponible_para-linux-black
-https://img.shields.io/badge/disponible_para-windows-black
+![Static Badge](https://img.shields.io/badge/estado-en_desarrollo-green)
+![Static Badge](https://img.shields.io/badge/disponible_para-linux-black)
+![Static Badge](https://img.shields.io/badge/disponible_para-windows-black)
 
 ## Sobre el programa
 Cree un archivo de texto con todas las palabras (o lineas de texto) que desee buscar, separandolas por un salto de línea. Cargue todos los archivos donde desea buscar esas palabras o lienas de texto y listo! Obtenga una lista desplegable con todos los resultados obtenidos.
